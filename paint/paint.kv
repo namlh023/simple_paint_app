@@ -122,6 +122,7 @@
             IconButton:
                 text: '[font=Heydings][size=40]A[/size][/font]'
                 on_press: screen_manager.current = 'color'
+                on_press: app.canvas_float.set_line_color(app.canvas_float.current_color)
 
             IconButton:
                 text: '[font=Modern Pictograms] [size=40]r[/size][/font]'
