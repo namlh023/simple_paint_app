@@ -1,0 +1,134 @@
+#:import C kivy.utils.get_color_from_hex
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+<RadioButton>:
+    background_normal: 'images/color_button_normal.png'
+    background_down: 'images/color_button_down.png'
+    border: (3, 3, 3, 3)
+
+<IconButton@RadioButton>:
+    group: 'icon'
+    background_color: C('#176cc1')
+    markup: True
+
+<ColorButton@RadioButton>:
+    group: 'color'
+    on_press: app.canvas_float.set_line_color(self.background_color)
+    on_press: app.canvas_float.current_color = self.background_color
+
+<CanvasFloat>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'x': 0, 'y': 0}
+        size_hint: (1, None)
+        height: 0.13 * root.height
+
+        ScreenManager:
+            id: screen_manager
+            transition: NoTransition()
+
+            Screen:
+                name: 'color'
+
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    ColorButton:
+                        background_color: C('#2980b9')
+                        state: 'down'
+
+                    ColorButton:
+                        background_color: C('#16a085')
+
+                    ColorButton:
+                        background_color: C('#27ae60')
+
+                    ColorButton:
+                        background_color: C('#f39c12')
+
+                    ColorButton:
+                        background_color: C('#d35400')
+
+                    ColorButton:
+                        background_color: C('#c0392b')
+
+                    ColorButton:
+                        background_color: C('#8e44ad')
+
+                    ColorButton:
+                        background_color: C('#bdc3c7')
+
+                    ColorButton:
+                        background_color: C('#7f8c8d')
+
+                    ColorButton:
+                        background_color: C('#2c3e50')
+
+                    ColorButton:
+                        background_color: C('#3498db')
+
+                    ColorButton:
+                        background_color: C('#1abc9c')
+
+                    ColorButton:
+                        background_color: C('#2ecc71')
+
+                    ColorButton:
+                        background_color: C('#f1c40f')
+
+                    ColorButton:
+                        background_color: C('#e67e22')
+
+                    ColorButton:
+                        background_color: C('#e74c3c')
+
+                    ColorButton:
+                        background_color: C('#9b59b6')
+
+                    ColorButton:
+                        background_color: C('#ecf0f1')
+
+                    ColorButton:
+                        background_color: C('#95a5a6')
+
+                    ColorButton:
+                        background_color: C('#34495e')
+
+            Screen:
+                name: 'line_width'
+
+                Slider:
+                    id: slide
+                    orientation: 'horizontal'
+                    min: 2
+                    max: 10
+                    value_track: True
+                    value_track_color: C('#bec5d1')
+                    on_value: app.canvas_float.set_line_width(self.value)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 5
+
+            IconButton:
+                text: '[font=Modern Pictograms] [size=40]I[/size][/font]'
+                on_release: root.clear_canvas()
+
+            IconButton:
+                text: '[font=Modern Pictograms] [size=40]R[/size][/font]'
+                on_release: root.undo_canvas()
+
+            IconButton:
+                text: '[font=Heydings][size=40]A[/size][/font]'
+                on_press: screen_manager.current = 'color'
+
+            IconButton:
+                text: '[font=Modern Pictograms] [size=40]r[/size][/font]'
+                on_press: screen_manager.current = 'line_width'
+                on_press: app.canvas_float.set_line_color(app.canvas_float.current_color)
+
+            IconButton:
+                text: '[font=Modern Pictograms] [size=40]d[/size][/font]'
+                on_press: screen_manager.current = 'line_width'
+                on_press: root.erase_canvas()
